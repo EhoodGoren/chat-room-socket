@@ -5,9 +5,9 @@ import io from 'socket.io-client';
 function Chat({ user }) {
     const [messages, setMessages] = useState([]);
     const socketRef = useRef();
+    const messageInput = useRef();
 
     useEffect(() => {
-        console.log('im here');
         socketRef.current = io.connect('http://localhost:8080', {
             query: {
                 user
@@ -19,8 +19,10 @@ function Chat({ user }) {
         })
     }, [user])
 
-    const sendMessage = () => {
-        socketRef.current.emit('message', {name: 'someone', message: 'hello'});
+    const sendMessage = (e) => {
+        e.preventDefault();
+        socketRef.current.emit('message', {name: user, message: messageInput.current.value});
+        messageInput.current.value = '';
     }
 
     const generateMessage = (name, message, index) => {
@@ -34,7 +36,10 @@ function Chat({ user }) {
     return (
         <div>
             {messages.map(({ name, message }, index) => generateMessage(name, message, index))}
-            <button onClick={sendMessage}>Send</button>
+            <form onSubmit={sendMessage}>
+                <input ref={messageInput} placeholder='Enter messages' />
+                <button onClick={sendMessage}>Send</button>
+            </form>
         </div>
     )
 }
