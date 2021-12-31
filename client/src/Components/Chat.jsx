@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import io from 'socket.io-client';
-
+import Online from "./chat-screen/Online";
+import Messages from "./chat-screen/Messages";
+import SendMessage from "./chat-screen/SendMessage";
 
 function Chat({ user }) {
     const [messages, setMessages] = useState([]);
     const [online, setOnline] = useState([]);
     const socketRef = useRef();
-    const messageInput = useRef();
 
     useEffect(() => {
         socketRef.current = io.connect('http://localhost:8080', {
@@ -24,42 +25,20 @@ function Chat({ user }) {
         })
     }, [user])
 
-    const sendMessage = (e) => {
-        e.preventDefault();
-        const date = new Date();
-        const messageTime = `${date.getHours()}:${date.getMinutes()}`;
-        socketRef.current.emit('message', { name: user, message: {time: messageTime, text: messageInput.current.value} });
-        messageInput.current.value = '';
-    }
-
-    const generateMessage = (name, message, index) => {
-        const { time, text } = message;
-        if(!name){
-            return <div key={`announcement ${index}`} className='announcements'>{message}</div>
-        } else {
-            return <div key={`message ${index}`} className='messages'>{time}  {name}: {text}</div>
-        }
-    }
-
-    const sendPrivateMessage = (e) => {
-        socketRef.current.emit('privateMessage', {
-            name: user,
-            message: messageInput.current.value,
-            target: e.target.innerText
-        });
-        messageInput.current.value = '';
-    }
+    // const sendPrivateMessage = (e) => {
+    //     socketRef.current.emit('privateMessage', {
+    //         name: user,
+    //         message: messageInput.current.value,
+    //         target: e.target.innerText
+    //     });
+    //     messageInput.current.value = '';
+    // }
 
     return (
         <div>
-            {messages.map(({ name, message }, index) => generateMessage(name, message, index))}
-            <form onSubmit={sendMessage}>
-                <input ref={messageInput} placeholder='Enter messages' />
-                <button onClick={sendMessage}>Send</button>
-            </form>
-            {online.map((user, index) => (
-                <div key={`participant ${index}`} onClick={sendPrivateMessage}>{user}</div>
-            ))}
+            <Messages messages={messages}/>
+            <SendMessage user={user} socketRef={socketRef} />
+            <Online online={online} />
         </div>
     )
 }
