@@ -15,9 +15,13 @@ app.use(cors());
 app.use(express.json());
 
 io.on('connection', (socket) => {
+    io.emit('messageBack', { message: `${socket.handshake.query.user} has connected!` });
     console.log('A user has connected');
     socket.on('message', (message) => {
         io.emit('messageBack', message);
+    })
+    socket.on('disconnect', () => {
+        io.emit('messageBack', { message: `${socket.handshake.query.user} has disconnected!` });
     })
 })
 
