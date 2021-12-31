@@ -1,0 +1,37 @@
+#chat-messages {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.messages {
+    width: max-content;
+    padding: 5px;
+    border-radius: 5px;
+    white-space: pre-wrap;
+    margin-bottom: 1%;
+}
+
+.self-messages {
+    margin-left: 10%;
+    background-color: #dcf8c6;
+}
+
+.others-messages {
+    margin-right: 10%;
+    background-color: white;
+    align-self: flex-end;
+}
+
+.announcements {
+    align-self: center;
+    font-size: 120%;
+}
+
+.message-time {
+    font-size: 85%;
+}
+
+.message-text {
+    font-size: 120%;
+}

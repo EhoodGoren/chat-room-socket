@@ -11,7 +11,7 @@ function SendMessage({ user, socketRef }) {
     }
     
     return(
-        <form id='send-message' onSubmit={sendMessage}>
+        <form id='send-message' className='chat-section' onSubmit={sendMessage}>
             <input ref={messageInput} placeholder='Enter messages' />
             <button type='submit' onClick={sendMessage}>Send</button>
         </form>

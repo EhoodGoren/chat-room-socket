@@ -1,0 +1,24 @@
+#chat-screen {
+    height: 96vh;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+}
+
+#chat-messages {
+    background-color: #e5ddd5;
+    grid-area: 1 / 1 / 10 / 8;
+}
+
+#online {
+    grid-area: 1 / 8 / 11 / 11;
+}
+
+#send-message {
+    background-color: #f0f0f0;
+    grid-area: 10 / 1 / 11 / 8;
+}
+
+.chat-section {
+    border: 1px black solid;
+}

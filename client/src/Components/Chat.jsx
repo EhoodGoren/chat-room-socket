@@ -3,6 +3,7 @@ import io from 'socket.io-client';
 import Online from "./chat-screen/Online";
 import Messages from "./chat-screen/Messages";
 import SendMessage from "./chat-screen/SendMessage";
+import './Chat.css';
 
 function Chat({ user }) {
     const [messages, setMessages] = useState([]);
@@ -35,8 +36,8 @@ function Chat({ user }) {
     // }
 
     return (
-        <div>
-            <Messages messages={messages}/>
+        <div id='chat-screen'>
+            <Messages user={user} messages={messages}/>
             <SendMessage user={user} socketRef={socketRef} />
             <Online online={online} />
         </div>
@@ -44,5 +45,3 @@ function Chat({ user }) {
 }
 
 export default Chat;
-
-
