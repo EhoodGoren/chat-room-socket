@@ -4,6 +4,7 @@ import io from 'socket.io-client';
 
 function Chat({ user }) {
     const [messages, setMessages] = useState([]);
+    const [online, setOnline] = useState([]);
     const socketRef = useRef();
     const messageInput = useRef();
 
@@ -16,6 +17,11 @@ function Chat({ user }) {
         
         socketRef.current.on('messageBack', (message) => {
             setMessages(msgs => [...msgs, message])
+        })
+
+        socketRef.current.on('onlineUpdate', (users) => {
+            console.log(users);
+            setOnline(users);
         })
     }, [user])
 
@@ -40,6 +46,9 @@ function Chat({ user }) {
                 <input ref={messageInput} placeholder='Enter messages' />
                 <button onClick={sendMessage}>Send</button>
             </form>
+            {online.map(user => (
+                <div>{user}</div>
+            ))}
         </div>
     )
 }

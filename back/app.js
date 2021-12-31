@@ -14,14 +14,22 @@ const io = socketIo(server, {
 app.use(cors());
 app.use(express.json());
 
+let onlineUsers = [];
 io.on('connection', (socket) => {
-    io.emit('messageBack', { message: `${socket.handshake.query.user} has connected!` });
-    console.log('A user has connected');
+    const requestSocketName = socket.handshake.query.user;
+
+    onlineUsers.push(requestSocketName)
+    io.emit('onlineUpdate', onlineUsers)
+    io.emit('messageBack', { message: `${requestSocketName} has connected!` });
+
     socket.on('message', (message) => {
         io.emit('messageBack', message);
     })
+
     socket.on('disconnect', () => {
-        io.emit('messageBack', { message: `${socket.handshake.query.user} has disconnected!` });
+        onlineUsers = onlineUsers.filter(user => user !== requestSocketName);
+        io.emit('onlineUpdate', onlineUsers)
+        io.emit('messageBack', { message: `${requestSocketName} has disconnected!` });
     })
 })
 
