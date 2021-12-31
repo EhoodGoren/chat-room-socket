@@ -18,17 +18,22 @@ let onlineUsers = [];
 io.on('connection', (socket) => {
     const requestSocketName = socket.handshake.query.user;
 
-    onlineUsers.push(requestSocketName)
-    io.emit('onlineUpdate', onlineUsers)
+    onlineUsers.push({name: requestSocketName, socketId: socket.id});
+    io.emit('onlineUpdate', onlineUsers.map(user => user.name));
     io.emit('messageBack', { message: `${requestSocketName} has connected!` });
 
     socket.on('message', (message) => {
         io.emit('messageBack', message);
     })
 
+    socket.on('privateMessage', ({ name, message, target }) => {
+        const targetUserSocket = onlineUsers.find(user => user.name === target).socketId;
+        io.to(targetUserSocket).emit('messageBack', { name, message});
+    })
+
     socket.on('disconnect', () => {
-        onlineUsers = onlineUsers.filter(user => user !== requestSocketName);
-        io.emit('onlineUpdate', onlineUsers)
+        onlineUsers = onlineUsers.filter(user => user.name !== requestSocketName);
+        io.emit('onlineUpdate', onlineUsers.map(user => user.name));
         io.emit('messageBack', { message: `${requestSocketName} has disconnected!` });
     })
 })

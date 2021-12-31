@@ -20,7 +20,6 @@ function Chat({ user }) {
         })
 
         socketRef.current.on('onlineUpdate', (users) => {
-            console.log(users);
             setOnline(users);
         })
     }, [user])
@@ -39,6 +38,15 @@ function Chat({ user }) {
         }
     }
 
+    const sendPrivateMessage = (e) => {
+        socketRef.current.emit('privateMessage', {
+            name: user,
+            message: messageInput.current.value,
+            target: e.target.innerText
+        });
+        messageInput.current.value = '';
+    }
+
     return (
         <div>
             {messages.map(({ name, message }, index) => generateMessage(name, message, index))}
@@ -46,8 +54,8 @@ function Chat({ user }) {
                 <input ref={messageInput} placeholder='Enter messages' />
                 <button onClick={sendMessage}>Send</button>
             </form>
-            {online.map(user => (
-                <div>{user}</div>
+            {online.map((user, index) => (
+                <div key={`participant ${index}`} onClick={sendPrivateMessage}>{user}</div>
             ))}
         </div>
     )
