@@ -26,15 +26,18 @@ function Chat({ user }) {
 
     const sendMessage = (e) => {
         e.preventDefault();
-        socketRef.current.emit('message', {name: user, message: messageInput.current.value});
+        const date = new Date();
+        const messageTime = `${date.getHours()}:${date.getMinutes()}`;
+        socketRef.current.emit('message', { name: user, message: {time: messageTime, text: messageInput.current.value} });
         messageInput.current.value = '';
     }
 
     const generateMessage = (name, message, index) => {
+        const { time, text } = message;
         if(!name){
             return <div key={`announcement ${index}`} className='announcements'>{message}</div>
         } else {
-            return <div key={`message ${index}`} className='messages'>{name}: {message}</div>
+            return <div key={`message ${index}`} className='messages'>{time}  {name}: {text}</div>
         }
     }
 
