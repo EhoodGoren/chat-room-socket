@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import './Login.css';
 
 function Login({ setUser }) {
     const nameInput = useRef();
@@ -11,9 +12,9 @@ function Login({ setUser }) {
         navigate('/chat');
     }
     return(
-        <form onSubmit={submitUser}>
-            <input id='user-input' ref={nameInput} placeholder='Enter your name'/>
-            <button type='submit'>Submit</button>
+        <form id='login' onSubmit={submitUser}>
+                <input id='user-input' ref={nameInput} placeholder='Enter your name'/>
+                <button id='user-submit' type='submit'>Submit</button>
         </form>
     )
 }

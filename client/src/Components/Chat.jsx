@@ -34,7 +34,7 @@ function Chat({ user }) {
         <div id='chat-screen'>
             <Messages user={user} messages={messages}/>
             <SendMessage user={user} socketRef={socketRef} privateMessage={privateMessage} setPrivateMessage={setPrivateMessage} />
-            <Online online={online} setPrivateMessage={setPrivateMessage} />
+            <Online user={user} online={online} setPrivateMessage={setPrivateMessage} />
         </div>
     )
 }
