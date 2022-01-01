@@ -1,19 +1,33 @@
 import React, { useRef } from "react";
 import './SendMessage.css';
 
-function SendMessage({ user, socketRef }) {
+function SendMessage({ user, socketRef, privateMessage, setPrivateMessage }) {
     const messageInput = useRef();
 
     const sendMessage = (e) => {
         e.preventDefault();
+        const emitEvent = privateMessage ? 'privateMessage' : 'message';
         const messageTime = getTimeHHMM();
-        socketRef.current.emit('message', { name: user, message: {time: messageTime, text: messageInput.current.value} });
+        socketRef.current.emit(emitEvent, {
+            name: user,
+            message: {
+                time: messageTime,
+                text: messageInput.current.value,
+                privateMessage: privateMessage ? true : false
+            },
+            target: privateMessage
+        });
         messageInput.current.value = '';
     }
+    const messageInputClass = privateMessage ? 'shorter-message-input' : 'message-input';
     
     return(
         <form id='send-message' className='chat-section' onSubmit={sendMessage}>
-            <input className='message-input' ref={messageInput} placeholder='Write a message' />
+            {privateMessage &&
+            <span className='private-message'>To: {privateMessage}{'  '}
+                <input type='button' className='remove-private' onClick={() => setPrivateMessage('')} value='❌'/>
+            </span>}
+            <input className={messageInputClass} ref={messageInput} placeholder='Write a message' />
             <input
                 className='send-button'
                 type='image'

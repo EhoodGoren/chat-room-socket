@@ -1,0 +1,17 @@
+.online-members {
+    font-size: 120%;
+    margin-left: 3%;
+    padding: 1%;
+    margin-bottom: 2%;
+    width: max-content;
+    background-color: white;
+    border: none;
+}
+.online-members:hover {
+    background-color: #CECECF;
+}
+
+.online-intro {
+    margin-left: 3%;
+    font-size: 100%;
+}

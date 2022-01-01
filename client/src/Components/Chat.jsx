@@ -8,6 +8,7 @@ import './Chat.css';
 function Chat({ user }) {
     const [messages, setMessages] = useState([]);
     const [online, setOnline] = useState([]);
+    const [privateMessage, setPrivateMessage] = useState();
     const socketRef = useRef();
 
     useEffect(() => {
@@ -24,22 +25,16 @@ function Chat({ user }) {
         socketRef.current.on('onlineUpdate', (users) => {
             setOnline(users);
         })
-    }, [user])
 
-    // const sendPrivateMessage = (e) => {
-    //     socketRef.current.emit('privateMessage', {
-    //         name: user,
-    //         message: messageInput.current.value,
-    //         target: e.target.innerText
-    //     });
-    //     messageInput.current.value = '';
-    // }
+        socketRef.current.on('noUser', () => setPrivateMessage(''))
+
+    }, [user])
 
     return (
         <div id='chat-screen'>
             <Messages user={user} messages={messages}/>
-            <SendMessage user={user} socketRef={socketRef} />
-            <Online online={online} />
+            <SendMessage user={user} socketRef={socketRef} privateMessage={privateMessage} setPrivateMessage={setPrivateMessage} />
+            <Online online={online} setPrivateMessage={setPrivateMessage} />
         </div>
     )
 }

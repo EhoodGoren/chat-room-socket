@@ -4,14 +4,19 @@
     align-items: center;
 }
 
-.message-input {
+.message-input, .shorter-message-input {
     height: 89%;
-    width: 80%;
     font-size: 120%;
     border-radius: 30px;
     border: none;
     margin-left: 3%;
     padding-left: 2%;
+}
+.message-input {
+    width: 80%;
+}
+.shorter-message-input {
+    width: 67%
 }
 .message-input:focus {
     outline-width: 0;
@@ -19,4 +24,23 @@
 .send-button {
     width: 4%;
     height: 50%;
+}
+
+.private-message {
+    width: max-content;
+    font-size: 120%;
+    white-space: pre-wrap;
+    margin-left: 5px;
+    padding: 0.5%;
+    background-color: #CECECF;
+}
+
+.remove-private {
+    padding: none;
+    font-size: 80%;
+    background-color: #8D8D8D;
+    border: 1px solid black;
+}
+.remove-private:hover {
+    background-color: #717171;
 }

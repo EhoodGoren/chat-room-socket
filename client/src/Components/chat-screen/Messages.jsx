@@ -3,7 +3,7 @@ import './Messages.css';
 
 function Messages({ user, messages }) {
     const generateMessage = (name, message, index) => {
-        const { time, text } = message;
+        const { time, text, privateMessage } = message;
         if(!name) {
             return (
                 <div
@@ -20,6 +20,8 @@ function Messages({ user, messages }) {
                 >
                     <span className='message-time'>{time}</span>
                     {'           '}
+                    {privateMessage && 
+                    <span><strong>[Private] </strong></span>}
                     <span className='message-text'>{name}: {text}</span>
                 </div>
             )

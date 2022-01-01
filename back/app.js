@@ -27,8 +27,11 @@ io.on('connection', (socket) => {
     })
 
     socket.on('privateMessage', ({ name, message, target }) => {
-        const targetUserSocket = onlineUsers.find(user => user.name === target).socketId;
-        io.to(targetUserSocket).emit('messageBack', { name, message});
+        const targetUser = onlineUsers.find(user => user.name === target);
+        if(!targetUser) return socket.emit('noUser')
+        const targetUserSocket = targetUser.socketId;
+        io.to(targetUserSocket).emit('messageBack', { name, message });
+        socket.emit('messageBack', { name, message });
     })
 
     socket.on('disconnect', () => {
