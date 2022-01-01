@@ -16,5 +16,10 @@
   "bugs": {
     "url": "https://github.com/EhoodGoren/chat-room-socket/issues"
   },
-  "homepage": "https://github.com/EhoodGoren/chat-room-socket#readme"
+  "homepage": "https://github.com/EhoodGoren/chat-room-socket#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.2",
+    "socket.io": "^4.4.0"
+  }
 }
