@@ -12,7 +12,7 @@ function Chat({ user }) {
     const socketRef = useRef();
 
     useEffect(() => {
-        socketRef.current = io.connect('http://back:8080', {
+        socketRef.current = io.connect('https://back:8080', {
             query: {
                 user
             }
