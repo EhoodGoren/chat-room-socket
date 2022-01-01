@@ -4,7 +4,7 @@ import './Online.css';
 function Online({ user: originalUser, online, setPrivateMessage }) {
     const privateMessage = (user) => {
         if(user === originalUser) return;
-        setPrivateMessage(originalUser);
+        setPrivateMessage(user);
     }
     return (
         <div id='online' className='chat-section'>
