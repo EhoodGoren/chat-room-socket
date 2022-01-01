@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import './SendMessage.css';
 
 function SendMessage({ user, socketRef }) {
     const messageInput = useRef();
@@ -12,8 +13,14 @@ function SendMessage({ user, socketRef }) {
     
     return(
         <form id='send-message' className='chat-section' onSubmit={sendMessage}>
-            <input ref={messageInput} placeholder='Enter messages' />
-            <button type='submit' onClick={sendMessage}>Send</button>
+            <input className='message-input' ref={messageInput} placeholder='Write a message' />
+            <input
+                className='send-button'
+                type='image'
+                src='https://image.flaticon.com/icons/png/512/60/60525.png'
+                alt='Send message'
+                onClick={sendMessage}
+            />
         </form>
     )
 }

@@ -1,0 +1,22 @@
+#send-message {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.message-input {
+    height: 89%;
+    width: 80%;
+    font-size: 120%;
+    border-radius: 30px;
+    border: none;
+    margin-left: 3%;
+    padding-left: 2%;
+}
+.message-input:focus {
+    outline-width: 0;
+}
+.send-button {
+    width: 4%;
+    height: 50%;
+}
