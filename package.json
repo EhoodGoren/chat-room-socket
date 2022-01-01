@@ -1,0 +1,20 @@
+{
+  "name": "chat-room-socket",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "cd back && npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EhoodGoren/chat-room-socket.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EhoodGoren/chat-room-socket/issues"
+  },
+  "homepage": "https://github.com/EhoodGoren/chat-room-socket#readme"
+}

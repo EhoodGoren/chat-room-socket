@@ -2,6 +2,7 @@ const express = require("express");
 const http = require('http')
 const socketIo = require("socket.io");
 const cors = require("cors");
+const path = require("path");
 
 const app = express();
 const server = http.createServer(app);
@@ -44,5 +45,7 @@ io.on('connection', (socket) => {
 app.get('/', (req, res) => {
     res.send('hi');
 });
+
+app.use(express.static(path.resolve(__dirname, "./client/build")));
 
 module.exports = server;
