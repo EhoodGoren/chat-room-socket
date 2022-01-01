@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  server:
+    image: ehoodgoren/chat-server:latest
+    restart: always
+    ports:
+      - "8080:8080"
+
+  client:
+    image: ehoodgoren/chat-client:latest
+    depends_on:
+      - server
+    restart: always
+    ports:
+      - "3000:3000"
