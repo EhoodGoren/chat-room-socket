@@ -12,7 +12,7 @@ function Chat({ user }) {
     const socketRef = useRef();
 
     useEffect(() => {
-        socketRef.current = io.connect('http://localhost:8080', {
+        socketRef.current = io.connect('https://eg-chat.herokuapp.com', {
             query: {
                 user
             }
